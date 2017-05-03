@@ -39,7 +39,7 @@ Your first job is to get the entire suite passing. There are also some comments 
 
 There is nothing stopping `shrink()`, `getSkinner()`, or `getShorter()` from allowing the height or width of the block to become negative. Add additional tests and implementation that make sure that this doesn't happen.
 
-### Blocky in the World
+### hamburger in the World
 
 Blocks should be able to take a fifth argument: a `world` instance. The implementation might look something like this:
 
