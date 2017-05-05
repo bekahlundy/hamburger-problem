@@ -1,111 +1,57 @@
-# Introduction to Unit Testing in JavaScript
+The purpose of the application is to help a fictitious company called Bill’s Burgers to manage
 
-## Installation
+their process of selling hamburgers. Our application will help Bill to select types of burgers,
 
-First, clone this repository. Once, you have it on your computer, navigate to the directory in the terminal and run the following command:
+some of the additional items (additions) to be added to the burgers and pricing.
 
-```
-npm install
-```
+We want to create a base hamburger, but also two other types of hamburgers that are popular
 
-## Starting Up
+ones in Bill’s store.
 
-Run the following from your terminal:
+The basic hamburger should have the following items.
 
-```
-npm start
-```
+1. bread roll type,
 
-Once the server is up and running, visit `http://localhost:4000/` in your browser.
+2. meat, and
 
-## Getting Started
+3. up to 4 additional additions (things like lettuce, tomato, carrot, etc) that the customer can
 
-We'll be modifying four files as we complete these exercises:
+select to be added to the burger.
 
-- `block.js`
-- `world.js`
-- `block-test.js`
-- `world-test.js`
+a. Each one of these items gets charged an additional price so you need some way
 
-## Phase One: Get the Tests Passing
+to track how many items got added and to calculate the price (for the base burger
 
-There are a few dozen tests defined between `block-test.js` and `world-test.js`. Some of them are complete with assertions and a working implementation. Some of them are skipped tests just waiting for an implementation. The rest are empty shells—waiting for you to write some assertions followed by the implementation necessary to get them passing.
+and all the additions).
 
-Your first job is to get the entire suite passing. There are also some comments in the test suite for additonal tests that you'll need to add.
+This burger has a base price and the additions are all separately priced.
 
-## Phase Two: Blaze Your Own Trail
+Create a Hamburger class to deal with all the above.
 
-### Inside Out
+The constructor should only include the roll type, meat and price.
 
-There is nothing stopping `shrink()`, `getSkinner()`, or `getShorter()` from allowing the height or width of the block to become negative. Add additional tests and implementation that make sure that this doesn't happen.
+Also create two extra varieties of Hamburgers (classes) to cater for
 
-### hamburger in the World
+a) Healthy burger (on a brown rye bread roll), plus two additional items can be added. The
 
-Blocks should be able to take a fifth argument: a `world` instance. The implementation might look something like this:
+healthy burger can have a total of 6 items (Additions) in total. hint: you probably want to
 
-```js
-// This is an example and probably not something you should copy verbatim.
+process the 2 additional items in this new class, not the base class, since the 2 additions
 
-function Block(x, y, width, height, world) {
-  this.x = x;
-  this.y = y;
-  this.width = width;
-  this.height = height;
-  this.world = world;
-}
+are only appropriate for this new class.
 
-// Block prototype methods omitted.
-// World code omitted.
+b) Deluxe hamburger - comes with chips and drinks as additions, but no extra additions are
 
-var world = new World(100, 100);
-var block = new Block(0, 0, 25, 25, world);
+allowed.hint: You have to find a way to automatically add these new additions at the
 
-// These would be two separate tests.
-assert.equal(block.world, world);
-```
+time the deluxe burger object is created, and then prevent other additions being made.
 
-Conversely, a world should be able to add blocks to itself. This might look something like this:
+All 3 classes should have a method that can be called anytime to show the base price of the
 
-(Notice that we're using _dependency injection_ to make sure that each block has a reference to a world instead of just hoping that there is a `world` variable somewhere in scope.)
+hamburger plus all additionals, each showing the addition name, and addition price, and a grand
 
-```js
-// This is an example and probably not something you should copy verbatim.
+total for the burger
 
-World.prototype.addBlock = function (x, y, width, height) {
-  // `this` is the current world instance that we're calling this method on.
-  // We'll pass it as the fifth argument (see above).
-  var block = new Block(x, y, width, height, this);
-};
-```
+For the two additional classes this may require you to be looking at the base class for pricing
 
-### Pushing Against the Edges
-
-Once you've built a connection between blocks and their world, it's time to apply some contraints.
-
-Blocks should be able to move right if they are already along the right-edge of their world. Along the same vein, they shouldn't be able to move if any direction if they are along the corresponding wall.
-
-Blocks also shouldn't be able to grow if their new size would push them over the edges of the world. This is where that `bottomRightCorner()` method you wrote earlier might come in handy.
-
-Consider implementing the following methods:
-
-- `canMoveUp()`
-- `canMoveDown()`
-- `canMoveLeft()`
-- `canMoveRight()`
-- `canGetFatter()`
-- `canGetSkinnier()`
-- `canGrow()`
-
-Next, add additional tests to make sure that if a block can't move or grow in a given direction that it doesn't infact move or grow in that direction. You'll need to add additional tests and logic to the following methods:
-
-- `moveUp()`
-- `moveDown()`
-- `moveLeft()`
-- `moveRight()`
-- `getFatter()`
-- `getSkinnier()`
-- `grow()`
-
-## Extensions
-
-Have an idea for how we can take this further? Open a pull request with your ideas.
+and then adding totals onto that.
